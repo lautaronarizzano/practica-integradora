@@ -44,10 +44,10 @@ const messages = []
 io.on('connection', socket => {
     socket.on('message', async data => {
         // messages.push(data)
-            // await messageModel.create({data.user, data.message})
+            await messageModel.create(data)
             try {
-                await chatManager.addMessage({data})
-            const messages = await chatManager.getMessages()
+            await chatManager.addMessage(data)
+            const messages = await chatManager.getMessages().toObject()
             console.log(messages)
             io.emit('messageLogs', messages)
             } catch (error) {
